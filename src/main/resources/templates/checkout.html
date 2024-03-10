@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout Fiap-Food</title>
+    <link rel="icon" type="image/x-icon" href="/fiap-food.png" th:href="@{/fiap-food.png}">
+    <link rel="stylesheet" type="text/css" href="/configs/styles/styles.css" th:href="@{/configs/styles/styles.css}">
+    <script src="/configs/scripts/payment.js" th:src="@{/configs/scripts/payment.js}"></script>
+<!--    <img width="100" height="100" src="https://img.icons8.com/ios-filled/100/000000/fast-food-drive-thru.png" alt="fast-food-drive-thru"/>-->
+</head>
+<body>
+<div class="order" th:object="${paymentRequest}">
+    Order
+   <p th:text="*{orderId}"></p>
+    Amount
+    <p th:text="*{amount}"></p>
+</div>
+<div class="checkout">
+
+    <div class="credit-card-box">
+        <div class="flip">
+            <div class="front">
+                <div class="chip"></div>
+
+                <div class="logo"  >
+                    <div id="logo-front"></div>
+                </div>
+
+                <div class="number">
+                    <div id="card-number-display"></div>
+                </div>
+                <div class="card-holder">
+                    <label>Card holder</label>
+                    <div id="card-holder-display"></div>
+                </div>
+                <div class="card-expiration-date">
+                    <label>Expires</label>
+                    <div id="card-expiration-display"></div>
+                </div>
+            </div>
+            <div class="back">
+                <div class="strip"></div>
+                <div class="logo">
+                    <div id="logo-end"></div>
+                </div>
+                <div class="ccv">
+                    <label>CCV</label>
+                    <div id="card-ccv-display"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="form"  action="#" th:action="@{/form/payment}" th:object="${paymentRequest}" method="post">
+        <fieldset>
+            <div>
+                <label for="card-number-1">Card Number</label>
+                <input type="text" id="card-number-1" name="card-number" class="input-card-number" maxlength="4"
+                        oninput="updateCardNumber(); updateCardNumberDisplay()" required/>
+                <input type="text" id="card-number-2" name="card-number" class="input-card-number" maxlength="4"
+                       pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" required/>
+                <input type="text" id="card-number-3" name="card-number" class="input-card-number" maxlength="4"
+                       pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" required/>
+                <input type="text" id="card-number-4" name="card-number" class="input-card-number" maxlength="4"
+                       pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" required/>
+            </div>
+            <div><span th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}" class="error"></span></div>
+        </fieldset>
+        <fieldset class="fieldset-card-holder">
+
+            <label for="card-holder">Card holder</label>
+            <input type="text" th:field="*{cardHolderName}" id="card-holder" oninput="updateCardHolderDisplay()" required/>
+            <div><span th:if="${#fields.hasErrors('cardHolderName')}" th:errors="*{cardHolderName}" class="error"></span></div>
+
+        </fieldset>
+        <fieldset class="fieldset-expiration">
+            <label for="card-expiration-month">Expiration date</label>
+            <div class="select">
+                <select id="card-expiration-month" onchange="updateExpirationDate(); updateExpirationDateDisplay()" required>
+                    <option></option>
+                    <option>01</option>
+                    <option>02</option>
+                    <option>03</option>
+                    <option>04</option>
+                    <option>05</option>
+                    <option>06</option>
+                    <option>07</option>
+                    <option>08</option>
+                    <option>09</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                </select>
+            </div>
+            <div class="select">
+                <label for="card-expiration-year"></label>
+                <select id="card-expiration-year" onchange="updateExpirationDate(); updateExpirationDateDisplay()" required>
+                    <option></option>
+                </select>
+            </div>
+            <div><span th:if="${#fields.hasErrors('cardExpirationDate')}" th:errors="*{cardExpirationDate}" class="error"></span></div>
+        </fieldset>
+
+        <fieldset class="fieldset-ccv" >
+            <label for="card-ccv">CCV</label>
+            <input type="text" th:field="*{cardCvv}" pattern="^[0-9]*$"  id="card-ccv" maxlength="3" oninput="updateCardCcvDisplay()" required />
+            <div><span th:if="${#fields.hasErrors('cardCvv')}" th:errors="*{cardCvv}" class="error"></span></div>
+        </fieldset>
+
+        <button class="btn"><i class="fa fa-lock" ></i> submit</button>
+        <!-- Campo oculto para armazenar os valor's concatenados -->
+        <input type="hidden" id="card_expiration_date"
+               th:field="*{cardExpirationDate}" name="card_expiration_date" />
+        <input type="hidden" th:value="*{orderId}"
+               th:field="*{orderId}" name="order_id" />
+        <input type="hidden" th:value="*{amount}"
+               th:field="*{amount}" name="amount" />
+        <input type="hidden" th:value="*{cardNumber}"
+               th:field="*{cardNumber}" id="card_number" name="card_number" />
+        <input type="hidden" th:value="*{cardBrand}"
+               th:field="*{cardBrand}" id="card_brand" name="card_brand" />
+        <input type="hidden" th:value="*{categoryCard}"
+               th:field="*{categoryCard}" id="category_card" name="category_card" />
+    </form>
+</div>
+</body>
+</html>
