@@ -4,7 +4,7 @@ import br.com.fiapfood.adapters.gateway.PaymentGateway;
 import br.com.fiapfood.adapters.mapper.PaymentMapper;
 import br.com.fiapfood.domain.model.Payment;
 import br.com.fiapfood.external.infrastructure.entity.PaymentEntity;
-import br.com.fiapfood.external.infrastructure.repository.JPA.PaymentRepository;
+import br.com.fiapfood.external.infrastructure.repository.jpa.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

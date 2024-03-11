@@ -1,6 +1,5 @@
 package br.com.fiapfood.application.usecase;
 
-import br.com.fiapfood.PaymentApplicationTest;
 import br.com.fiapfood.adapters.gateway.CheckoutGateway;
 import br.com.fiapfood.adapters.gateway.PaymentGateway;
 import br.com.fiapfood.adapters.gateway.QrCodeGateway;
@@ -25,7 +24,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = PaymentApplicationTest.class)
+@SpringBootTest
 class CheckoutUseCaseImplTest {
 
 	@Mock

@@ -6,7 +6,6 @@ import br.com.fiapfood.adapters.dto.response.CheckoutResponse;
 import br.com.fiapfood.application.exception.ObjectNotFoundException;
 import br.com.fiapfood.domain.enums.PaymentStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;

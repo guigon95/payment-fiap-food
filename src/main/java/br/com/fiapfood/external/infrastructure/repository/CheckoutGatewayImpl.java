@@ -4,7 +4,7 @@ import br.com.fiapfood.adapters.gateway.CheckoutGateway;
 import br.com.fiapfood.adapters.mapper.CheckoutMapper;
 import br.com.fiapfood.domain.model.Checkout;
 import br.com.fiapfood.external.infrastructure.entity.CheckoutEntity;
-import br.com.fiapfood.external.infrastructure.repository.JPA.CheckoutRepository;
+import br.com.fiapfood.external.infrastructure.repository.jpa.CheckoutRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

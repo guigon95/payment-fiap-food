@@ -1,4 +1,4 @@
-package br.com.fiapfood.external.infrastructure.repository.JPA;
+package br.com.fiapfood.external.infrastructure.repository.jpa;
 
 import br.com.fiapfood.external.infrastructure.entity.PaymentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -50,7 +50,7 @@ public class ExceptionHandlerApi {
 	public ErrorMessage constraintViolationException(ConstraintViolationException ex, WebRequest request) {
 		log.error(ex.getMessage(), ex);
 		List<ErrorMessage.CauseError> causes = new ArrayList<>();
-		for (ConstraintViolation constraint : ex.getConstraintViolations()) {
+		for (ConstraintViolation<?> constraint : ex.getConstraintViolations()) {
 			var listField = constraint.getPropertyPath().toString().split("\\.");
 			causes.add(ErrorMessage.CauseError.builder()
 				.cause(constraint.getMessage())

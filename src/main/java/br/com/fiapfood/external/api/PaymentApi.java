@@ -3,7 +3,6 @@ package br.com.fiapfood.external.api;
 import br.com.fiapfood.adapters.controller.PaymentController;
 import br.com.fiapfood.adapters.dto.request.PaymentRequest;
 import br.com.fiapfood.adapters.dto.response.PaymentResponse;
-import io.awspring.cloud.sqs.annotation.SqsListener;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
