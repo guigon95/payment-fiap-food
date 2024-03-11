@@ -2,7 +2,7 @@ package br.com.fiapfood.application.usecase;
 
 import br.com.fiapfood.adapters.gateway.CheckoutGateway;
 import br.com.fiapfood.adapters.gateway.PaymentGateway;
-import br.com.fiapfood.adapters.qrcode.GenerateQrCode;
+import br.com.fiapfood.adapters.gateway.QrCodeGateway;
 import br.com.fiapfood.application.exception.ObjectException;
 import br.com.fiapfood.application.exception.ObjectNotFoundException;
 import br.com.fiapfood.domain.model.Checkout;
@@ -20,45 +20,48 @@ import java.util.Base64;
 @RequiredArgsConstructor
 public class CheckoutUseCaseImpl implements CheckoutUseCase {
 
-    private final CheckoutGateway checkoutGateway;
-    private final PaymentGateway paymentGateway;
+	private final CheckoutGateway checkoutGateway;
 
+	private final PaymentGateway paymentGateway;
 
-    @Override
-    public Checkout createCheckout(Checkout checkout) {
+	private final QrCodeGateway qrCodeGateway;
 
-        Checkout checkoutOld = checkoutGateway.findByOrderId(checkout.getOrderId());
-        if(checkoutOld.exist())
-            return checkoutOld;
+	@Override
+	public Checkout createCheckout(Checkout checkout) {
 
-        checkout.setQrCode(getQrCodeCheckout( checkout.getOrderId(),  checkout.getAmount()));
-        return checkoutGateway.save(checkout);
-    }
+		Checkout checkoutOld = checkoutGateway.findByOrderId(checkout.getOrderId());
+		if (checkoutOld != null)
+			return checkoutOld;
 
+		checkout.setQrCode(getQrCodeCheckout(checkout.getOrderId(), checkout.getAmount()));
+		return checkoutGateway.save(checkout);
+	}
 
-    @Override
-    public Checkout getCheckout(Long orderId) {
-        Checkout checkout = checkoutGateway.findByOrderId(orderId);
-        if(!checkout.exist())
-            throw new ObjectNotFoundException("Checkout not found");
+	@Override
+	public Checkout getCheckout(Long orderId) {
+		Checkout checkout = checkoutGateway.findByOrderId(orderId);
+		if (checkout == null)
+			throw new ObjectNotFoundException("Checkout not found");
 
-        Payment payment = paymentGateway.findByOrderID(checkout.getOrderId());
-        if(payment.Exist()) {
-            checkout.setPaymentStatus(payment.getStatus());
-        }
+		Payment payment = paymentGateway.findByOrderID(checkout.getOrderId());
+		if (payment != null) {
+			checkout.setPaymentStatus(payment.getStatus());
+		}
 
-        return checkout;
-    }
+		return checkout;
+	}
 
-    @Override
-    public String getQrCodeCheckout(Long orderId, BigDecimal amount) {
-        String url ="http://localhost:8080/form/checkout/order/order/" + orderId + "?amount=" + amount;
-        byte[] image;
-        try {
-            image = GenerateQrCode.getQRCodeImage(url, 350, 350);
-        } catch (WriterException | IOException e) {
-            throw new ObjectException("Error while generating QR code");
-        }
-        return Base64.getEncoder().encodeToString(image);
-    }
+	@Override
+	public String getQrCodeCheckout(Long orderId, BigDecimal amount) {
+		String url = "http://localhost:8080/form/checkout/order/order/" + orderId + "?amount=" + amount;
+		byte[] image;
+		try {
+			image = qrCodeGateway.getQRCodeImage(url, 350, 350);
+		}
+		catch (WriterException | IOException e) {
+			throw new ObjectException("Error while generating QR code");
+		}
+		return Base64.getEncoder().encodeToString(image);
+	}
+
 }

@@ -12,19 +12,20 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class CheckoutGatewayImpl implements CheckoutGateway {
 
-    private final CheckoutRepository checkoutRepository;
-    private final CheckoutMapper checkoutMapper;
+	private final CheckoutRepository checkoutRepository;
 
-    @Override
-    public Checkout save(Checkout checkout) {
-        var checkoutEntity = checkoutMapper.checkouToCheckoutEntity(checkout);
-        return checkoutMapper.checkoutEntityToCheckout(checkoutRepository.save(checkoutEntity));
-    }
+	private final CheckoutMapper checkoutMapper;
 
-    @Override
-    public Checkout findByOrderId(Long id) {
-        CheckoutEntity checkout = checkoutRepository.findByOrderId(id).
-                orElse(null);
-            return checkoutMapper.checkoutEntityToCheckout(checkout);
-    }
+	@Override
+	public Checkout save(Checkout checkout) {
+		var checkoutEntity = checkoutMapper.checkouToCheckoutEntity(checkout);
+		return checkoutMapper.checkoutEntityToCheckout(checkoutRepository.save(checkoutEntity));
+	}
+
+	@Override
+	public Checkout findByOrderId(Long id) {
+		CheckoutEntity checkout = checkoutRepository.findByOrderId(id).orElse(null);
+		return checkoutMapper.checkoutEntityToCheckout(checkout);
+	}
+
 }

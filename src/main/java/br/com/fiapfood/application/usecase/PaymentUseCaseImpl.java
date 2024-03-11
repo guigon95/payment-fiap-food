@@ -12,57 +12,55 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PaymentUseCaseImpl implements PaymentUseCase {
 
-    private final PaymentGateway paymentGateway;
+	private final PaymentGateway paymentGateway;
 
+	@Override
+	public Payment createPayment(Payment payment) {
 
-    @Override
-    public Payment createPayment(Payment payment) {
+		Payment paymentOld = paymentGateway.findByOrderID(payment.getOrderId());
+		if (paymentOld != null)
+			return paymentOld;
 
-        Payment paymentOld = paymentGateway.findByOrderID(payment.getOrderId());
-        if(Boolean.TRUE.equals(paymentOld.Exist()))
-            return paymentOld;
+		payment.setStatus(PaymentStatus.APPROVED);
+		return paymentGateway.save(payment);
+	}
 
-        payment.setStatus(PaymentStatus.APPROVED);
-        return paymentGateway.save(payment);
-    }
+	@Override
+	public Payment cancelPaymentByOrderId(Long orderId) {
+		Payment payment = paymentGateway.findByOrderID(orderId);
+		if (payment == null)
+			throw new ObjectNotFoundException("Payment not exists");
 
-    @Override
-    public Payment cancelPaymentByOrderId(Long orderId){
-        Payment payment = paymentGateway.findByOrderID(orderId);
-        if(Boolean.FALSE.equals(payment.Exist()))
-            throw new ObjectNotFoundException("Payment not exists");
+		payment.setStatus(PaymentStatus.CANCELED);
+		return paymentGateway.save(payment);
+	}
 
-        payment.setStatus(PaymentStatus.CANCELED);
-        return paymentGateway.save(payment);
-    }
+	@Override
+	public Payment cancelPayment(Long id) {
+		Payment payment = paymentGateway.findByID(id);
+		if (payment == null)
+			throw new ObjectNotFoundException("Payment not exists");
 
-    @Override
-    public Payment cancelPayment(Long id){
-        Payment payment = paymentGateway.findByID(id);
-        if(Boolean.FALSE.equals(payment.Exist()))
-            throw new ObjectNotFoundException("Payment not exists");
+		payment.setStatus(PaymentStatus.CANCELED);
+		return paymentGateway.save(payment);
+	}
 
-        payment.setStatus(PaymentStatus.CANCELED);
-        return paymentGateway.save(payment);
-    }
+	@Override
+	public Payment getPaymentByOrderId(Long orderId) {
+		Payment payment = paymentGateway.findByOrderID(orderId);
+		if (Boolean.FALSE.equals(payment.exist()))
+			throw new ObjectNotFoundException("Payment not found");
 
-    @Override
-    public Payment getPaymentByOrderId(Long orderId) {
-        Payment payment = paymentGateway.findByOrderID(orderId);
-        if(Boolean.FALSE.equals(payment.Exist()))
-            throw new ObjectNotFoundException("Payment not found");
+		return payment;
+	}
 
-        return payment;
-    }
+	@Override
+	public Payment getPaymentById(Long id) {
+		Payment payment = paymentGateway.findByID(id);
+		if (Boolean.FALSE.equals(payment.exist()))
+			throw new ObjectNotFoundException("Payment not found");
 
-    @Override
-    public Payment getPaymentById(Long id) {
-        Payment payment = paymentGateway.findByID(id);
-        if(Boolean.FALSE.equals(payment.Exist()))
-            throw new ObjectNotFoundException("Payment not found");
-
-        return payment;
-    }
-
+		return payment;
+	}
 
 }

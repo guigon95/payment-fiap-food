@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invalid Operation - Fiap Food Payments</title>
+    <link rel="icon" type="image/x-icon" href="/fiap-food.png" th:href="@{/fiap-food.png}">
+    <link rel="stylesheet" type="text/css" href="/configs/styles/styles.css" th:href="@{/configs/styles/styles.css}">
+    <style>
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <img src="/fiap-food.png" th:src="@{/fiap-food.png}" alt="Fiap Food Logo">
+    <h1>Invalid Operation</h1>
+    <p>Sorry, the operation you attempted is invalid.</p>
+    <a th:href="@{/form/payment/home}">Back to Home</a>
+</div>
+</body>
+</html>

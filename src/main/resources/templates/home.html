@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Fiap Food</title>
+    <link rel="icon" type="image/x-icon" href="/fiap-food.png" th:href="@{/fiap-food.png}">
+    <link rel="stylesheet" type="text/css" href="/configs/styles/styles.css" th:href="@{/configs/styles/styles.css}">
+    <style>
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .rotate {
+            animation: rotation 2s infinite linear;
+        }
+        @keyframes rotation {
+            from {
+                transform: rotate(359deg);
+            }
+            to {
+                transform: rotate(0deg);
+            }
+        }
+         h1, h2 {
+             color: white;
+         }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <img class="rotate" alt="Fiap Food Logo" src="data:image/png;base64,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">
+        <h1>Welcome to Payment Fiap Food</h1>
+        <h2>Building...</h2>
+    </div>
+</body>
+</html>

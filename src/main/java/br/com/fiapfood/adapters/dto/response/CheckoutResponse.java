@@ -9,12 +9,15 @@ import lombok.Data;
 @Data
 public class CheckoutResponse {
 
-    private Long id;
+	private Long id;
 
-    @JsonProperty("order_id")
-    private Long orderId;
-    @JsonProperty("qr_code")
-    private String qrCode;
-    @JsonProperty("payment_status")
-    private PaymentStatus paymentStatus;
+	@JsonProperty("order_id")
+	private Long orderId;
+
+	@JsonProperty("qr_code")
+	private String qrCode;
+
+	@JsonProperty("payment_status")
+	private PaymentStatus paymentStatus;
+
 }

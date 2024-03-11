@@ -14,23 +14,29 @@ import java.math.BigDecimal;
 @Data
 public class PaymentResponse {
 
-    private Long id;
+	private Long id;
 
-    @JsonProperty("order_id")
-    private Long orderId;
-    private PaymentStatus status;
-    private String description;
-    private BigDecimal amount;
-    @JsonProperty("category_card")
-    private CategoryCard categoryCard;
+	@JsonProperty("order_id")
+	private Long orderId;
 
-    @JsonIgnore
-    private String cardNumber;
-    @JsonProperty("card_number")
-    @ToString.Include(name = "card_number")
-    public String getMaskedCardNumber() {
-        String maskCard =  cardNumber.substring(0,4) + "********" + cardNumber.substring(cardNumber.length() - 4);
-        cardNumber = "";
-        return maskCard;
-    }
+	private PaymentStatus status;
+
+	private String description;
+
+	private BigDecimal amount;
+
+	@JsonProperty("category_card")
+	private CategoryCard categoryCard;
+
+	@JsonIgnore
+	private String cardNumber;
+
+	@JsonProperty("card_number")
+	@ToString.Include(name = "card_number")
+	public String getMaskedCardNumber() {
+		String maskCard = cardNumber.substring(0, 4) + "********" + cardNumber.substring(cardNumber.length() - 4);
+		cardNumber = "";
+		return maskCard;
+	}
+
 }

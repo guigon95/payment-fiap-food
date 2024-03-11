@@ -14,14 +14,17 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class CheckoutController {
 
-    private final CheckoutUseCase checkoutUseCase;
-    private final CheckoutMapper checkoutMapper;
+	private final CheckoutUseCase checkoutUseCase;
 
-    public ResponseEntity<CheckoutResponse> checkout(Long orderId,  BigDecimal amount) {
-        return ResponseEntity.ok(checkoutMapper.checkoutToCheckoutResponse(checkoutUseCase.createCheckout(new Checkout(orderId, amount))));
-    }
-    public ResponseEntity<CheckoutResponse> getCheckout(Long orderId) {
-        return ResponseEntity.ok(checkoutMapper.checkoutToCheckoutResponse(checkoutUseCase.getCheckout(orderId)));
-    }
+	private final CheckoutMapper checkoutMapper;
+
+	public ResponseEntity<CheckoutResponse> checkout(Long orderId, BigDecimal amount) {
+		return ResponseEntity.ok(checkoutMapper
+			.checkoutToCheckoutResponse(checkoutUseCase.createCheckout(new Checkout(orderId, amount))));
+	}
+
+	public ResponseEntity<CheckoutResponse> getCheckout(Long orderId) {
+		return ResponseEntity.ok(checkoutMapper.checkoutToCheckoutResponse(checkoutUseCase.getCheckout(orderId)));
+	}
 
 }

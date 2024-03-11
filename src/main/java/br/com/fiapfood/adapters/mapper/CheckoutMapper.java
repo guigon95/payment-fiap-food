@@ -8,10 +8,10 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface CheckoutMapper {
 
-    Checkout checkoutEntityToCheckout(CheckoutEntity checkoutEntity);
-    CheckoutResponse checkoutToCheckoutResponse(Checkout checkout);
+	Checkout checkoutEntityToCheckout(CheckoutEntity checkoutEntity);
 
-    CheckoutEntity checkouToCheckoutEntity(Checkout checkout);
+	CheckoutResponse checkoutToCheckoutResponse(Checkout checkout);
 
+	CheckoutEntity checkouToCheckoutEntity(Checkout checkout);
 
 }

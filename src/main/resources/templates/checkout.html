@@ -6,7 +6,6 @@
     <link rel="icon" type="image/x-icon" href="/fiap-food.png" th:href="@{/fiap-food.png}">
     <link rel="stylesheet" type="text/css" href="/configs/styles/styles.css" th:href="@{/configs/styles/styles.css}">
     <script src="/configs/scripts/payment.js" th:src="@{/configs/scripts/payment.js}"></script>
-<!--    <img width="100" height="100" src="https://img.icons8.com/ios-filled/100/000000/fast-food-drive-thru.png" alt="fast-food-drive-thru"/>-->
 </head>
 <body>
 <div class="order" th:object="${paymentRequest}">
@@ -55,13 +54,13 @@
             <div>
                 <label for="card-number-1">Card Number</label>
                 <input type="text" id="card-number-1" name="card-number" class="input-card-number" maxlength="4"
-                        oninput="updateCardNumber(); updateCardNumberDisplay()" required/>
+                        oninput="updateCardNumber(); updateCardNumberDisplay()" onpaste="handlePaste(event)" required/>
                 <input type="text" id="card-number-2" name="card-number" class="input-card-number" maxlength="4"
-                       pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" required/>
+                       pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" onpaste="handlePaste(event)" required/>
                 <input type="text" id="card-number-3" name="card-number" class="input-card-number" maxlength="4"
-                       pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" required/>
+                       pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" onpaste="handlePaste(event)" required/>
                 <input type="text" id="card-number-4" name="card-number" class="input-card-number" maxlength="4"
-                       pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" required/>
+                       pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" onpaste="handlePaste(event)" required/>
             </div>
             <div><span th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}" class="error"></span></div>
         </fieldset>
@@ -108,17 +107,17 @@
 
         <button class="btn"><i class="fa fa-lock" ></i> submit</button>
         <!-- Campo oculto para armazenar os valor's concatenados -->
-        <input type="hidden" id="card_expiration_date"
+        <input aria-hidden="true" type="hidden" id="card_expiration_date"
                th:field="*{cardExpirationDate}" name="card_expiration_date" />
-        <input type="hidden" th:value="*{orderId}"
+        <input aria-hidden="true" type="hidden" th:value="*{orderId}"
                th:field="*{orderId}" name="order_id" />
-        <input type="hidden" th:value="*{amount}"
+        <input aria-hidden="true" type="hidden" th:value="*{amount}"
                th:field="*{amount}" name="amount" />
-        <input type="hidden" th:value="*{cardNumber}"
+        <input aria-hidden="true" type="hidden" th:value="*{cardNumber}"
                th:field="*{cardNumber}" id="card_number" name="card_number" />
-        <input type="hidden" th:value="*{cardBrand}"
+        <input aria-hidden="true" type="hidden" th:value="*{cardBrand}"
                th:field="*{cardBrand}" id="card_brand" name="card_brand" />
-        <input type="hidden" th:value="*{categoryCard}"
+        <input aria-hidden="true" type="hidden" th:value="*{categoryCard}"
                th:field="*{categoryCard}" id="category_card" name="category_card" />
     </form>
 </div>

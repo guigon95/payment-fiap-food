@@ -18,18 +18,19 @@ import java.math.BigDecimal;
 @Tag(name = "Checkout", description = "Access to checkout management")
 public class CheckoutApi {
 
-    private final CheckoutController checkoutController;
+	private final CheckoutController checkoutController;
 
-    @PostMapping("/order/{order_id}")
-    public ResponseEntity<CheckoutResponse> checkout(@Valid@PathVariable(name = "order_id") @Schema(description = "order id") Long id,
-                                                     @Param("amount") @Schema(description = "amount of the payment") BigDecimal amount){
-        return checkoutController.checkout(id, amount);
-    }
+	@PostMapping("/order/{order_id}")
+	public ResponseEntity<CheckoutResponse> checkout(
+			@Valid @PathVariable(name = "order_id") @Schema(description = "order id") Long id,
+			@Param("amount") @Schema(description = "amount of the payment") BigDecimal amount) {
+		return checkoutController.checkout(id, amount);
+	}
 
-
-    @GetMapping("/order/{order_id}")
-    public ResponseEntity<CheckoutResponse> getCheckout(@PathVariable(name = "order_id") @Schema(description = "order id") Long id){
-        return checkoutController.getCheckout(id);
-    }
+	@GetMapping("/order/{order_id}")
+	public ResponseEntity<CheckoutResponse> getCheckout(
+			@PathVariable(name = "order_id") @Schema(description = "order id") Long id) {
+		return checkoutController.getCheckout(id);
+	}
 
 }

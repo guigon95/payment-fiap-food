@@ -14,21 +14,22 @@ import java.math.BigDecimal;
 @Data
 public class CheckoutEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ordem", nullable = false, columnDefinition = "BIGINT")
-    private Long ordem;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ordem", nullable = false, columnDefinition = "BIGINT")
+	private Long ordem;
 
-    @Column(name = "order_id")
-    private Long orderId;
+	@Column(name = "order_id")
+	private Long orderId;
 
-    @Column(name = "qr_code")
-    private String qrCode;
+	@Column(name = "qr_code")
+	@Lob
+	private String qrCode;
 
-    @Column(name = "amount")
-    private BigDecimal amount;
+	@Column(name = "amount")
+	private BigDecimal amount;
 
-    @Transient
-    private PaymentStatus paymentStatus;
+	@Transient
+	private PaymentStatus paymentStatus;
 
 }

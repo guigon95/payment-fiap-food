@@ -15,23 +15,34 @@ import java.math.BigDecimal;
 @Setter
 public class Payment {
 
-    private Long id;
-    private String cardNumber;
-    private Long orderId;
-    private PaymentStatus status;
-    private String cardHolderName;
-    private String cardExpirationDate;
-    private String cardCvv;
-    private String cardBrand;
-    private String description;
-    private BigDecimal amount;
-    private CategoryCard categoryCard;
+	private Long id;
 
-    public Payment(Long orderId) {
-        this.orderId = orderId;
-    }
+	private String cardNumber;
 
-    public Boolean Exist() {
-        return this.id > 0 && this.orderId > 0;
-    }
+	private Long orderId;
+
+	private PaymentStatus status;
+
+	private String cardHolderName;
+
+	private String cardExpirationDate;
+
+	private String cardCvv;
+
+	private String cardBrand;
+
+	private String description;
+
+	private BigDecimal amount;
+
+	private CategoryCard categoryCard;
+
+	public Payment(Long orderId) {
+		this.orderId = orderId;
+	}
+
+	public Boolean exist() {
+		return this.id != null;
+	}
+
 }

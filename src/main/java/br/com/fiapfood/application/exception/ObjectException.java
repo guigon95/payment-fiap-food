@@ -4,5 +4,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class ObjectException extends RuntimeException {
-    String message;
+
+	String message;
+
 }

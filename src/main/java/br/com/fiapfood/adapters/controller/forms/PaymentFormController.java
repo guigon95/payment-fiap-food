@@ -9,26 +9,26 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-
 @Controller
 @RequiredArgsConstructor
 public class PaymentFormController {
 
-    private final PaymentUseCase paymentUseCase;
+	private final PaymentUseCase paymentUseCase;
 
-    private final PaymentMapper paymentMapper;
+	private final PaymentMapper paymentMapper;
 
-    public ResponseEntity<Void> payment(Long id){
-        paymentUseCase.createPayment(new Payment(id));
-        return ResponseEntity.ok().build();
-    }
+	public ResponseEntity<Void> payment(Long id) {
+		paymentUseCase.createPayment(new Payment(id));
+		return ResponseEntity.ok().build();
+	}
 
-    public PaymentResponse createPayment(PaymentRequest paymentRequest){
-        Payment payment = paymentMapper.paymentRequestToPayment(paymentRequest);
-        return paymentMapper.paymentToPaymentResponse(paymentUseCase.createPayment(payment));
-    }
+	public PaymentResponse createPayment(PaymentRequest paymentRequest) {
+		Payment payment = paymentMapper.paymentRequestToPayment(paymentRequest);
+		return paymentMapper.paymentToPaymentResponse(paymentUseCase.createPayment(payment));
+	}
 
-    public PaymentResponse cancelPayment(Long orderId){
-        return paymentMapper.paymentToPaymentResponse(paymentUseCase.cancelPayment(orderId));
-    }
+	public PaymentResponse cancelPayment(Long orderId) {
+		return paymentMapper.paymentToPaymentResponse(paymentUseCase.cancelPayment(orderId));
+	}
+
 }

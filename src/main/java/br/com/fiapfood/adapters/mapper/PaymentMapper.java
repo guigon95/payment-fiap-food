@@ -9,11 +9,12 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface PaymentMapper {
 
-    Payment paymentEntityToPayment(PaymentEntity paymentEntity);
+	Payment paymentEntityToPayment(PaymentEntity paymentEntity);
 
-    PaymentEntity paymentToPaymentEntity(Payment payment);
-    Payment paymentRequestToPayment(PaymentRequest paymentRequest);
+	PaymentEntity paymentToPaymentEntity(Payment payment);
 
-    PaymentResponse paymentToPaymentResponse(Payment payment);
+	Payment paymentRequestToPayment(PaymentRequest paymentRequest);
+
+	PaymentResponse paymentToPaymentResponse(Payment payment);
 
 }

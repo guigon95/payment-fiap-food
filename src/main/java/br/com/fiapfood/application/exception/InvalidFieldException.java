@@ -10,7 +10,9 @@ import java.util.List;
 @Builder
 @Data
 public class InvalidFieldException extends RuntimeException implements Serializable {
-    String message;
-    transient List<ErrorMessage.CauseError> causeErrorList;
+
+	String message;
+
+	transient List<ErrorMessage.CauseError> causeErrorList;
 
 }

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,23 +17,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class PaymentForm {
 
-    private final PaymentFormController paymentController;
+	private final PaymentFormController paymentController;
 
-    @PostMapping("")
-    public String createPayment(@Valid PaymentRequest paymentRequest, BindingResult bindingResult, Model model){
+	@PostMapping("")
+	public String createPayment(@Valid PaymentRequest paymentRequest, BindingResult bindingResult, Model model) {
 
-        if (bindingResult.hasErrors()) {
-            return "checkout";
-        }
-        PaymentResponse payment = paymentController.createPayment(paymentRequest);
+		if (bindingResult.hasErrors()) {
+			return "checkout";
+		}
+		PaymentResponse payment = paymentController.createPayment(paymentRequest);
 
-        if (payment == null) {
-            return "error";
-        }
-        model.addAttribute("orderId", paymentRequest.getOrderId());
-        model.addAttribute("amount", paymentRequest.getAmount());
+		if (payment == null) {
+			return "error";
+		}
+		model.addAttribute("orderId", paymentRequest.getOrderId());
+		model.addAttribute("amount", paymentRequest.getAmount());
 
-        return "success";
-    }
+		return "success";
+	}
+
+	@GetMapping("/home")
+	public String paymentHome() {
+		return "home";
+	}
 
 }
