@@ -29,11 +29,11 @@
                     <div id="card-number-display"></div>
                 </div>
                 <div class="card-holder">
-                    <label>Card holder</label>
+                    <span aria-label="Card holder">Card holder</span>
                     <div id="card-holder-display"></div>
                 </div>
                 <div class="card-expiration-date">
-                    <label>Expires</label>
+                    <span aria-label="Expires">Expires</span>
                     <div id="card-expiration-display"></div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                     <div id="logo-end"></div>
                 </div>
                 <div class="ccv">
-                    <label>CCV</label>
+                    <span aria-label="CCV">CCV</span>
                     <div id="card-ccv-display"></div>
                 </div>
             </div>
@@ -51,27 +51,32 @@
     </div>
     <form class="form"  action="#" th:action="@{/form/payment}" th:object="${paymentRequest}" method="post">
         <fieldset>
+            <legend>Card Number</legend>
             <div>
-                <label for="card-number-1">Card Number</label>
-                <input type="text" id="card-number-1" name="card-number" class="input-card-number" maxlength="4"
-                        oninput="updateCardNumber(); updateCardNumberDisplay()" onpaste="handlePaste(event)" required/>
-                <input type="text" id="card-number-2" name="card-number" class="input-card-number" maxlength="4"
-                       pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" onpaste="handlePaste(event)" required/>
-                <input type="text" id="card-number-3" name="card-number" class="input-card-number" maxlength="4"
-                       pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" onpaste="handlePaste(event)" required/>
-                <input type="text" id="card-number-4" name="card-number" class="input-card-number" maxlength="4"
-                       pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" onpaste="handlePaste(event)" required/>
+                <label for="card-number-1">
+                    <input type="text" id="card-number-1" name="card-number" class="input-card-number" maxlength="4"
+                           oninput="updateCardNumber(); updateCardNumberDisplay()" onpaste="handlePaste(event)" required/>
+                    <input type="text" id="card-number-2" name="card-number" class="input-card-number" maxlength="4"
+                           pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" onpaste="handlePaste(event)" required/>
+                    <input type="text" id="card-number-3" name="card-number" class="input-card-number" maxlength="4"
+                           pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" onpaste="handlePaste(event)" required/>
+                    <input type="text" id="card-number-4" name="card-number" class="input-card-number" maxlength="4"
+                           pattern="^[0-9]*$" oninput="updateCardNumber(); updateCardNumberDisplay()" onpaste="handlePaste(event)" required/>
+                </label>
             </div>
             <div><span th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}" class="error"></span></div>
         </fieldset>
         <fieldset class="fieldset-card-holder">
+            <legend></legend>
+            <label>Card holder
 
-            <label for="card-holder">Card holder</label>
-            <input type="text" th:field="*{cardHolderName}" id="card-holder" oninput="updateCardHolderDisplay()" required/>
+                <input type="text" th:field="*{cardHolderName}" id="card-holder" oninput="updateCardHolderDisplay()" required/>
+            </label>
             <div><span th:if="${#fields.hasErrors('cardHolderName')}" th:errors="*{cardHolderName}" class="error"></span></div>
 
         </fieldset>
         <fieldset class="fieldset-expiration">
+            <legend></legend>
             <label for="card-expiration-month">Expiration date</label>
             <div class="select">
                 <select id="card-expiration-month" onchange="updateExpirationDate(); updateExpirationDateDisplay()" required>
@@ -91,25 +96,28 @@
                 </select>
             </div>
             <div class="select">
-                <label for="card-expiration-year"></label>
-                <select id="card-expiration-year" onchange="updateExpirationDate(); updateExpirationDateDisplay()" required>
-                    <option></option>
-                </select>
+                <label for="card-expiration-year">.
+                    <select id="card-expiration-year" onchange="updateExpirationDate(); updateExpirationDateDisplay()" required>
+                        <option></option>
+                    </select>
+                </label>
             </div>
             <div><span th:if="${#fields.hasErrors('cardExpirationDate')}" th:errors="*{cardExpirationDate}" class="error"></span></div>
         </fieldset>
 
         <fieldset class="fieldset-ccv" >
-            <label for="card-ccv">CCV</label>
-            <input type="text" th:field="*{cardCvv}" pattern="^[0-9]*$"  id="card-ccv" maxlength="3" oninput="updateCardCcvDisplay()" required />
+            <legend></legend>
+            <label>CCV
+                <input type="text" th:field="*{cardCvv}" pattern="^[0-9]*$"  id="card-ccv" maxlength="3" oninput="updateCardCcvDisplay()" required />
+            </label>
             <div><span th:if="${#fields.hasErrors('cardCvv')}" th:errors="*{cardCvv}" class="error"></span></div>
         </fieldset>
 
         <button class="btn"><i class="fa fa-lock" ></i> submit</button>
         <!-- Campo oculto para armazenar os valor's concatenados -->
-        <input aria-hidden="true" type="hidden" id="card_expiration_date"
-               th:field="*{cardExpirationDate}" name="card_expiration_date" />
-        <input aria-hidden="true" type="hidden" th:value="*{orderId}"
+        <input id="card_expiration_date" name="card_expiration_date"
+               th:field="*{cardExpirationDate}" type="hidden"/>
+        <input hidden type="hidden" th:value="*{orderId}"
                th:field="*{orderId}" name="order_id" />
         <input aria-hidden="true" type="hidden" th:value="*{amount}"
                th:field="*{amount}" name="amount" />

@@ -49,7 +49,6 @@ Form
 --------------------*/
 .form fieldset {
     border: none;
-    padding: 0;
     padding: 10px 0;
     position: relative;
     clear: both;
@@ -75,7 +74,7 @@ Form
     color: rgba(0, 0, 0, 0.6);
     margin-bottom: 5px;
     font-weight: bold;
-    font-family: Inconsolata;
+    font-family: Inconsolata, serif;
 }
 .form fieldset input,
 .form fieldset .select {
@@ -184,7 +183,7 @@ Credit Card
     background: linear-gradient(135deg, #bd6772, #53223f);
     position: absolute;
     color: #fff;
-    font-family: Inconsolata;
+    font-family: Inconsolata, serif;
     top: 0;
     left: 0;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
@@ -265,7 +264,7 @@ Credit Card
     left: 19px;
     font-size: 38px;
 }
-.credit-card-box label {
+.credit-card-box span {
     font-size: 10px;
     letter-spacing: 1px;
     text-shadow: none;
@@ -303,7 +302,7 @@ Credit Card
     text-align: right;
     padding: 10px;
 }
-.credit-card-box .ccv label {
+.credit-card-box .ccv span {
     margin: -25px 0 14px;
     color: #fff;
 }
@@ -333,7 +332,7 @@ Order
     padding: 15px 45px 30px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     font-size: 14px;
-    font-family: Inconsolata;
+    font-family: Inconsolata, serif;
     text-transform: uppercase;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.6);
