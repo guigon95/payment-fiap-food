@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern='{"time":"%style{%d{ISO8601}}{red}", "level":"%highlight{%-5level}", "function:"%style{%t}{bright,blue}", "class":"%style{%C{1.}}{bright,yellow}", "msg":"%msg"}%n'
+            />
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console" />
+        </Root>
+
+        <Logger name="com.baeldung" level="trace"/>
+    </Loggers>
+
+</Configuration>
