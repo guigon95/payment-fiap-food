@@ -14,4 +14,6 @@ public interface PaymentUseCase {
 
 	Payment getPaymentById(Long id);
 
+	void updateStatusByID(Payment payment);
+
 }
