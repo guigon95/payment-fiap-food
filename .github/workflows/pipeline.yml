@@ -96,7 +96,7 @@ jobs:
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         env:
-          CONTAINER_NAME: payment-task
+          CONTAINER_NAME: ${{ secrets.APP_NAME }}-task
         uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
         with:
           task-definition: task-definition.json
