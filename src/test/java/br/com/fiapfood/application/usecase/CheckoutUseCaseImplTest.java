@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -24,7 +24,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
 class CheckoutUseCaseImplTest {
 
 	@Mock
@@ -41,6 +40,7 @@ class CheckoutUseCaseImplTest {
 
 	@BeforeEach
 	void setUp() {
+		MockitoAnnotations.openMocks(this);
 	}
 
 	@AfterEach
