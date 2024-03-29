@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="/fiap-food.png" th:href="@{/fiap-food.png}">
+  <link rel="stylesheet" type="text/css" href="/configs/styles/styles.css" th:href="@{/configs/styles/styles.css}">
+  <title>QrCode Checkout</title>
+  <style>
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      text-align: center;
+    }
+  </style>
+
+</head>
+<body>
+<div class="center">
+  <h1>QrCode Checkout</h1>
+  <img th:src="@{'data:image/png;base64,' + ${encodedImage}}"  alt="">
+</div>
+</body>
+</html>

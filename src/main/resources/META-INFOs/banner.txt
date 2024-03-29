@@ -1,0 +1,9 @@
+${AnsiColor.BRIGHT_MAGENTA}
+ ____ ____ ____ ____ ____ ____ ____ ____ ____
+||F |||i |||a |||p |||- |||F |||o |||o |||d ||
+||__|||P ||A |||Y|||M|||E |||N |||T |||__||
+|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
+${AnsiColor.BRIGHT_CYAN}
+${application.title} ${application.version}
+Powered by Spring Boot ${spring-boot.version}
+${AnsiColor.BRIGHT_BLACK}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Success</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/fiap-food.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/configs/styles/styles.css}">
+    <style>
+        body {
+            background: linear-gradient(50deg, #000, #2fa269);
+        }
+    </style>
+</head>
+<body>
+<div class="order">
+    <h1>Payment Success</h1>
+    Order
+   <p th:text="*{orderId}"></p>
+    Amount
+    <p th:text="*{amount}"></p>
+</div>
+</body>
+</html>
