@@ -2,6 +2,7 @@ package br.com.fiapfood.application.usecase;
 
 import br.com.fiapfood.adapters.gateway.PaymentGateway;
 import br.com.fiapfood.adapters.gateway.PaymentProducerGateway;
+import br.com.fiapfood.application.exception.InvalidStatusException;
 import br.com.fiapfood.application.exception.ObjectNotFoundException;
 import br.com.fiapfood.domain.enums.PaymentStatus;
 import br.com.fiapfood.domain.model.Payment;
@@ -24,7 +25,7 @@ public class PaymentUseCaseImpl implements PaymentUseCase {
 		if (paymentOld != null)
 			return paymentOld;
 
-		payment.setStatus(PaymentStatus.APPROVED);
+		payment.setStatus(PaymentStatus.PROCESSING);
 		return paymentGateway.save(payment);
 	}
 
@@ -68,11 +69,13 @@ public class PaymentUseCaseImpl implements PaymentUseCase {
 
 	@Override
 	public void updateStatusByID(Payment payment) {
-		Payment paymentNew = paymentGateway.findByID(payment.getId());
-		if (paymentNew.isValidStatus(payment.getStatus()))
-			throw new IllegalStateException("Invalid status");
+		Payment paymentNew = getPaymentById(payment.getId());
+		if (!paymentNew.isValidStatus(payment.getStatus()))
+			throw new InvalidStatusException("Invalid status, cannot return to previous status [new status: "
+					+ payment.getStatus() + "][old status: " + paymentNew.getStatus() + "]");
 
 		paymentNew.setStatus(payment.getStatus());
+		paymentGateway.save(paymentNew);
 		if (paymentNew.getStatus().equals(PaymentStatus.APPROVED))
 			paymentProducerGateway.publishMessage(paymentNew);
 	}
