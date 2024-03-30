@@ -141,6 +141,12 @@
 			<version>4.13.1</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-sqs</artifactId>
+			<version>1.12.676</version>
+		</dependency>
 	</dependencies>
 
 	<build>

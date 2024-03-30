@@ -1,4 +1,4 @@
-package br.com.fiapfood.external.infrastructure.repository;
+package br.com.fiapfood.external.gateway;
 
 import br.com.fiapfood.adapters.gateway.CheckoutGateway;
 import br.com.fiapfood.adapters.mapper.CheckoutMapper;

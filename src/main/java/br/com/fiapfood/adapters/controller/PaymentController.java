@@ -1,6 +1,7 @@
 package br.com.fiapfood.adapters.controller;
 
 import br.com.fiapfood.adapters.dto.request.PaymentRequest;
+import br.com.fiapfood.adapters.dto.request.PaymentStatusRequest;
 import br.com.fiapfood.adapters.dto.response.PaymentResponse;
 import br.com.fiapfood.adapters.mapper.PaymentMapper;
 import br.com.fiapfood.domain.model.Payment;
@@ -39,6 +40,11 @@ public class PaymentController {
 
 	public ResponseEntity<PaymentResponse> getPaymentByOrderId(Long orderId) {
 		return ResponseEntity.ok(paymentMapper.paymentToPaymentResponse(paymentUseCase.getPaymentByOrderId(orderId)));
+	}
+
+	public ResponseEntity<Void> updateStatusById(PaymentStatusRequest paymentStatusRequest) {
+		paymentUseCase.updateStatusByID(paymentMapper.paymentStatusRequestToPayment(paymentStatusRequest));
+		return ResponseEntity.ok().build();
 	}
 
 }

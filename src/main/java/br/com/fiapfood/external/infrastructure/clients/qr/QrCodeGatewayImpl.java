@@ -1,4 +1,4 @@
-package br.com.fiapfood.external.infrastructure.clients;
+package br.com.fiapfood.external.infrastructure.clients.qr;
 
 import br.com.fiapfood.adapters.gateway.QrCodeGateway;
 import com.google.zxing.BarcodeFormat;

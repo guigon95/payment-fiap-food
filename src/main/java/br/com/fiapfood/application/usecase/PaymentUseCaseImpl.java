@@ -1,6 +1,7 @@
 package br.com.fiapfood.application.usecase;
 
 import br.com.fiapfood.adapters.gateway.PaymentGateway;
+import br.com.fiapfood.adapters.gateway.PaymentProducerGateway;
 import br.com.fiapfood.application.exception.ObjectNotFoundException;
 import br.com.fiapfood.domain.enums.PaymentStatus;
 import br.com.fiapfood.domain.model.Payment;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Component;
 public class PaymentUseCaseImpl implements PaymentUseCase {
 
 	private final PaymentGateway paymentGateway;
+
+	private final PaymentProducerGateway paymentProducerGateway;
 
 	@Override
 	public Payment createPayment(Payment payment) {
@@ -48,7 +51,7 @@ public class PaymentUseCaseImpl implements PaymentUseCase {
 	@Override
 	public Payment getPaymentByOrderId(Long orderId) {
 		Payment payment = paymentGateway.findByOrderID(orderId);
-		if (Boolean.FALSE.equals(payment.exist()))
+		if (payment == null)
 			throw new ObjectNotFoundException("Payment not found");
 
 		return payment;
@@ -57,10 +60,21 @@ public class PaymentUseCaseImpl implements PaymentUseCase {
 	@Override
 	public Payment getPaymentById(Long id) {
 		Payment payment = paymentGateway.findByID(id);
-		if (Boolean.FALSE.equals(payment.exist()))
+		if (payment == null)
 			throw new ObjectNotFoundException("Payment not found");
 
 		return payment;
+	}
+
+	@Override
+	public void updateStatusByID(Payment payment) {
+		Payment paymentNew = paymentGateway.findByID(payment.getId());
+		if (paymentNew.isValidStatus(payment.getStatus()))
+			throw new IllegalStateException("Invalid status");
+
+		paymentNew.setStatus(payment.getStatus());
+		if (paymentNew.getStatus().equals(PaymentStatus.APPROVED))
+			paymentProducerGateway.publishMessage(paymentNew);
 	}
 
 }

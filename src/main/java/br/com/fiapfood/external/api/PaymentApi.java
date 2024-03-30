@@ -2,6 +2,7 @@ package br.com.fiapfood.external.api;
 
 import br.com.fiapfood.adapters.controller.PaymentController;
 import br.com.fiapfood.adapters.dto.request.PaymentRequest;
+import br.com.fiapfood.adapters.dto.request.PaymentStatusRequest;
 import br.com.fiapfood.adapters.dto.response.PaymentResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -90,6 +91,18 @@ public class PaymentApi {
 	public ResponseEntity<PaymentResponse> cancelPayment(
 			@PathVariable("id") @NotNull(message = "The field id cannot be null.") Long id) {
 		return paymentController.cancelPayment(id);
+	}
+
+	@PutMapping("/gateway")
+	@ResponseStatus(HttpStatus.OK)
+	@Operation(summary = "Update a payment")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Payment Status",
+					content = { @Content(mediaType = "application/json") }),
+			@ApiResponse(responseCode = "4xx", description = "Invalid data", content = @Content),
+			@ApiResponse(responseCode = "5xx", description = "Internal server error", content = @Content) })
+	public ResponseEntity<Void> updateStatus(@RequestBody @Valid PaymentStatusRequest paymentStatusRequest) {
+		return paymentController.updateStatusById(paymentStatusRequest);
 	}
 
 }

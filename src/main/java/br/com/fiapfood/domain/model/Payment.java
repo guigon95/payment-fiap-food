@@ -45,4 +45,8 @@ public class Payment {
 		return this.id != null;
 	}
 
+	public boolean isValidStatus(PaymentStatus paymentStatus) {
+		return this.status.ordinal() < paymentStatus.ordinal();
+	}
+
 }

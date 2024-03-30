@@ -130,12 +130,10 @@ class CheckoutUseCaseImplTest {
 
 	@Test
 	void getQrCodeCheckout_Error() throws IOException, WriterException {
-		// Arrange
 		Long orderId = 5L;
 		BigDecimal amount = BigDecimal.valueOf(100);
 		when(qrCodeGateway.getQRCodeImage(anyString(), anyInt(), anyInt())).thenThrow(IOException.class);
 
-		// Act & Assert
 		assertThrows(ObjectException.class, () -> checkoutUseCaseImpl.getQrCodeCheckout(orderId, amount));
 	}
 
