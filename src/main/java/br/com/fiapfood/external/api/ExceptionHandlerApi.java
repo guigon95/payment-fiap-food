@@ -2,6 +2,8 @@ package br.com.fiapfood.external.api;
 
 import br.com.fiapfood.adapters.dto.response.exceptions.ErrorMessage;
 import br.com.fiapfood.application.exception.InvalidFieldException;
+import br.com.fiapfood.application.exception.InvalidStatusException;
+import br.com.fiapfood.application.exception.ObjectNotFoundException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import jakarta.persistence.EntityNotFoundException;
@@ -30,11 +32,20 @@ public class ExceptionHandlerApi {
 
 	public static final String INVALID_FIELDS = "Invalid Fields";
 
-	@ExceptionHandler(value = { EntityNotFoundException.class })
+	@ExceptionHandler(value = { EntityNotFoundException.class, ObjectNotFoundException.class })
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public ErrorMessage objectNotFoundException(Exception ex, WebRequest request) {
-		log.error(ex.getMessage(), ex);
-		return new ErrorMessage(HttpStatus.NOT_FOUND, LocalDateTime.now(), ex.getMessage());
+		var message = ex.getMessage();
+		log.error(message, ex);
+		return new ErrorMessage(HttpStatus.NOT_FOUND, LocalDateTime.now(), message);
+	}
+
+	@ExceptionHandler(value = { InvalidStatusException.class })
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public ErrorMessage httpMessageInvalidStatusException(Exception ex, WebRequest request) {
+		var message = ex.getMessage();
+		log.error(message, ex);
+		return new ErrorMessage(HttpStatus.BAD_REQUEST, LocalDateTime.now(), message);
 	}
 
 	@ExceptionHandler(value = { InvalidFieldException.class })
