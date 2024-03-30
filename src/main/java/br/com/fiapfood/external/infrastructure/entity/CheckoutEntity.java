@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "checkout", uniqueConstraints = @UniqueConstraint(columnNames = { "order_id" }))
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

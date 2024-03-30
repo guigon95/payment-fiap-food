@@ -1,5 +1,6 @@
 package br.com.fiapfood.application.usecase;
 
+import br.com.fiapfood.adapters.gateway.PaymentExternalGateway;
 import br.com.fiapfood.adapters.gateway.PaymentGateway;
 import br.com.fiapfood.adapters.gateway.PaymentProducerGateway;
 import br.com.fiapfood.application.exception.InvalidStatusException;
@@ -18,6 +19,8 @@ public class PaymentUseCaseImpl implements PaymentUseCase {
 
 	private final PaymentProducerGateway paymentProducerGateway;
 
+	private final PaymentExternalGateway paymentExternalGateway;
+
 	@Override
 	public Payment createPayment(Payment payment) {
 
@@ -26,6 +29,7 @@ public class PaymentUseCaseImpl implements PaymentUseCase {
 			return paymentOld;
 
 		payment.setStatus(PaymentStatus.PROCESSING);
+		paymentExternalGateway.sendPayment(payment);
 		return paymentGateway.save(payment);
 	}
 
