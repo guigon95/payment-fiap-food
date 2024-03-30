@@ -53,10 +53,11 @@ public class CheckoutUseCaseImpl implements CheckoutUseCase {
 
 	@Override
 	public String getQrCodeCheckout(Long orderId, BigDecimal amount) {
-		String url = "http://localhost:8080/form/checkout/order/order/" + orderId + "?amount=" + amount;
+		StringBuilder url = new StringBuilder();
+		url.append("http://localhost:8080/form/checkout/order/").append(orderId).append("?amount=").append(amount);
 		byte[] image;
 		try {
-			image = qrCodeGateway.getQRCodeImage(url, 350, 350);
+			image = qrCodeGateway.getQRCodeImage(url.toString(), 350, 350);
 		}
 		catch (WriterException | IOException e) {
 			throw new ObjectException("Error while generating QR code");

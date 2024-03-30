@@ -98,8 +98,7 @@ public class PaymentApi {
 	@Operation(summary = "Update a payment")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Payment Status",
-					content = { @Content(mediaType = "application/json",
-							schema = @Schema(implementation = PaymentResponse.class)) }),
+					content = { @Content(mediaType = "application/json") }),
 			@ApiResponse(responseCode = "4xx", description = "Invalid data", content = @Content),
 			@ApiResponse(responseCode = "5xx", description = "Internal server error", content = @Content) })
 	public ResponseEntity<Void> updateStatus(@RequestBody @Valid PaymentStatusRequest paymentStatusRequest) {

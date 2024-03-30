@@ -9,10 +9,11 @@ import lombok.Data;
 @Data
 public class CheckoutResponse {
 
-	private Long id;
-
 	@JsonProperty("order_id")
 	private Long orderId;
+
+	@JsonProperty("amount")
+	private String amount;
 
 	@JsonProperty("qr_code")
 	private String qrCode;
