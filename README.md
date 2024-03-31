@@ -34,8 +34,7 @@ This project is a simple API to simulate a payment system for a food delivery ap
 ![img_1.png](img_1.png)
 
 ## Architecture
-
-![payment.png](..%2F..%2F..%2F..%2FDownloads%2Fpayment.png)
+![payment.png](payment.png)
 
 ## Checkout Cycle Forms
 ![img.png](img.png)
