@@ -1,5 +1,6 @@
 package br.com.fiapfood.adapters.dto.response.exceptions;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import lombok.AllArgsConstructor;
@@ -17,12 +18,17 @@ import java.util.List;
 @NoArgsConstructor
 public class ErrorMessage {
 
+	@JsonProperty("http_status")
 	HttpStatus httpStatus;
 
+	@JsonProperty("timestamp")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	LocalDateTime localDateTime;
 
+	@JsonProperty("message")
 	String message;
 
+	@JsonProperty("detail")
 	List<CauseError> detail;
 
 	public ErrorMessage(HttpStatus httpStatus, LocalDateTime now, String message) {
@@ -49,17 +55,15 @@ public class ErrorMessage {
 		this.message = message;
 		var fields = new ArrayList<CauseError>();
 		for (Object item : fieldErrors.toArray()) {
-			if (item instanceof FieldError it) {
-				fields.add(new CauseError(it.getField(), it.getDefaultMessage()));
-			}
-			else if (item instanceof JsonMappingException.Reference it) {
-				fields.add(new CauseError(it.getFieldName(), it.getDescription()));
-			}
-			else if (item instanceof CauseError it) {
-				fields.add(it);
-			}
-			else {
-				fields.add(CauseError.builder().cause(item.toString()).build());
+			switch (item) {
+				case FieldError it -> fields.add(new CauseError(it.getField(), it.getDefaultMessage()));
+				case JsonMappingException.Reference it ->
+					fields.add(new CauseError(it.getFieldName(), it.getDescription()));
+				case CauseError it -> fields.add(it);
+				case null, default -> {
+					assert item != null;
+					fields.add(CauseError.builder().cause(item.toString()).build());
+				}
 			}
 
 		}

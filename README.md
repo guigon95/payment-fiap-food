@@ -4,14 +4,37 @@
 
 This project is a simple API to simulate a payment system for a food delivery application. It was developed as the tech challenger for the FIAP MBA in Software Architecture.
 
-## Technologies
+## Prerequisites:
+- Apache Maven 3.+
+- JDK 21
+- Docker 20+
+- Docker Compose 1.22.+
 
-- Java 21
-- Spring Boot 3.0.0
-- Maven 3.8.1
-- Docker 20.10.8
-- Docker Compose 1.29.2
-- MySQL 8.0.26
+## Start application in Docker container in Docker:
+```
+    docker-compose up -d
+```
+
+## Stop all applications in Docker containers:
+```
+    docker-compose stop
+```
+
+## Start application in Docker container in Docker and rebuild service image:
+```
+    docker-compose up --build --force-recreate --no-deps -d 
+```
+
+## Swagger documentation:
+```
+    http://localhost:8080/swagger-ui.html
+```
+
+## Swagger
+![img_1.png](img_1.png)
+
+## Architecture
+![payment.png](payment.png)
 
 ## Checkout Cycle Forms
 ![img.png](img.png)
